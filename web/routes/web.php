@@ -27,3 +27,8 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+Route::resource('/entertainer','App\Http\Controllers\EntertainersController',['only' =>['index','create','store','show']]);
+Route::resource('/entertainer.comment','App\Http\Controllers\CommentsController',['only'=>['store']]);
+Route::resource('/user','App\Http\Controllers\UsersController',['only' => ['show']]);
+Route::resource('/entertainer.favorite','App\Http\Controllers\FavoritesController',['only'=>['store','delete']]);
+
