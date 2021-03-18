@@ -22,19 +22,26 @@ class EntertainersController extends Controller
         return view('Entertainers.create',compact('entertainers'));
     }
     public function store(Request $request,Entertainer $entertainer){
-        $name = $request->name;
+        $URL = "https://talent-dictionary.com/{$request->name}";
+        $goutte = GoutteFacade::request('GET', $URL);
+        $goutte->filter('.article_header')->each(function ($ul) {
+            $ul->filter('.header_top')->each(function ($li) {
 
-        $goutte = GoutteFacade::request('GET', "https://talent-dictionary.com/{{$name}}");
-        $filter = $goutte->filter('.container')->filter('container_inner')->filter('main')->filter('article')->filter('article_header');
-        $entertainer->image_url = array();
-        $entertainer->name = array();
-        $entertainer->age = array();
-        $entertainer->image_url = $filter->filter('main_img')->filter('img')->attr('src');
-        $entertainer->name = $filter->filter('header_info')->filter('talent_name_wrapper')->filter('h1')->text();
-        $entertainer->age = $filter->filter('header_info')->filter('talent_name_wrapper')->filter('a')->text()->str_replace('歳');
-        $entertainer->save();
-        
-        return view('Entertainer.store',compact('entertainer'));
+                $entertainer = new Entertainer;
+                $image_url = $li->filter('img')->attr('src');
+                $entertainer->image_url = $image_url;
+                $classage = $li->filter('.age')->text();
+                $age = rtrim($classage,'歳');
+                $entertainer->age = $age;
+                $name = $li->filter('h1')->text();
+                $entertainer->name = $name;
+                $entertainer->save();
+
+            });
+        });
+        $entertainer = Entertainer::where('name',$request->name)->firstOrFail();;
+
+        return view('Entertainers.store',compact('entertainer'));
     }
     public function show($id){
         $entertainer = Entertainer::findOrfail($id);
