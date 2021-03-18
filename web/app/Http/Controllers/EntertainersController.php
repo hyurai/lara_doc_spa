@@ -41,8 +41,9 @@ class EntertainersController extends Controller
         $entertainer_id = $entertainer->id;
         $user_id = Auth::id();
         $comments = $entertainer->comments;
-        $favorite = $entertainer->favorites->first();
 
-        return view('Entertainers.show',compact('entertainer','comments','favorite'));
+        $favorites = $entertainer->favorites;
+
+        return view('Entertainers.show',compact('entertainer','comments','favorites'));
     }
 }

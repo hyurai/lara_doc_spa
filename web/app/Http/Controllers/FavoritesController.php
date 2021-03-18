@@ -14,10 +14,9 @@ class FavoritesController extends Controller
         $favorite->save();
         return back();
     }
-    public function delete(Request $request,$id){
-        $entertainer = Entertainer::findOrfail($request->id);
-        $user = Auth::user()->id;
+    public function destroy(Request $request,$id){
+        $favorite = Favorite::findOrfail($request->id);
+        $favorite->delete();
         return back();
-
     }
 }

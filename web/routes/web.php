@@ -30,5 +30,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::resource('/entertainer','App\Http\Controllers\EntertainersController',['only' =>['index','create','store','show']]);
 Route::resource('/entertainer.comment','App\Http\Controllers\CommentsController',['only'=>['store']]);
 Route::resource('/user','App\Http\Controllers\UsersController',['only' => ['show']]);
-Route::resource('/entertainer.favorite','App\Http\Controllers\FavoritesController',['only'=>['store','delete']]);
-
+Route::resource('/entertainer.favorite','App\Http\Controllers\FavoritesController',['only'=>['destroy','show']]);
