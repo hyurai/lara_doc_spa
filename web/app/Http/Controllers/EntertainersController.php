@@ -9,6 +9,8 @@ use App\Models\Favorite;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Weidner\Goutte\GoutteFacade as GoutteFacade;
+use Validator;
+
 
 
 class EntertainersController extends Controller
@@ -17,9 +19,6 @@ class EntertainersController extends Controller
     public function index(){
         $entertainers = Entertainer::all();
         return view('Entertainers.index',compact('entertainers'));
-    }
-    public function create(Entertainer $entertainers){
-        return view('Entertainers.create',compact('entertainers'));
     }
     public function store(Request $request,Entertainer $entertainer){
         $URL = "https://talent-dictionary.com/{$request->name}";
@@ -36,19 +35,22 @@ class EntertainersController extends Controller
                 $name = $li->filter('h1')->text();
                 $entertainer->name = $name;
                 $entertainer->save();
-
             });
         });
         $entertainer = Entertainer::where('name',$request->name)->firstOrFail();;
-
-        return view('Entertainers.store',compact('entertainer'));
+        $validator = Validator::make($request->all(),[
+            'name' => 'required',
+        ]);
+        if($validator->fails()){
+            return back()
+            ->withErrors('$validator')
+            ->withInput();
+        }
+        return redirect('/entertainer')->withInput($entertainer);
     }
     public function show($id){
         $entertainer = Entertainer::findOrfail($id);
-        $entertainer_id = $entertainer->id;
-        $user_id = Auth::id();
         $comments = $entertainer->comments;
-
         $favorites = $entertainer->favorites;
 
         return view('Entertainers.show',compact('entertainer','comments','favorites'));

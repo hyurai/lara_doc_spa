@@ -1,16 +1,36 @@
-<nav class = "navbar navbar-inverse navbar-static-top">
-  <div class = "container">
-    <ul class="nav navbar-nav">
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="navbarEexample">
       @Auth
-        <li class = "active"><a href="/entertainer/create">SEARCH</a></li>
-        <li class = "active"><a href="/user/{{Auth::id()}}">MYPAGE</a></li>
-        <li class = "active"><a href="/">USEREDIT</a></li>
-        <li class = "active"><a href="/">LOGOUT</a></li>
+        <ul class="nav navbar-nav">
+          <li class=""><a href="/user/Auth::id()"> MYPAGE</a></li>
+        </ul>
+        <form action = "/entertainer"class="navbar-form navbar-right" role="search" method = "POST">
+          @csrf
+          <div  class="form-group">
+            <input name = "name" type="text" class="form-control" placeholder="芸能人名">
+          </div>
+          <button type="submit" class="btn btn-primary">検索</button>
+        </form>
+        <form action = "/logout" class="navbar-form navbar-left" role="search" method = "POST">
+          @csrf
+          <button type="submit" class="btn btn-danger">ROGOUT</button>
+        </form>
       @else
-        <li class = "active"><a href="/login">LOGIN</a></li>
-        <li class = "active"><a href="/register">REGISTER</a></li>
+        <ul class="nav navbar-nav">
+          <li class=""><a href="/login">ROGIN</a></li>
+          <li class=""><a href="/register">REGISTER</a></li>
+        </ul>
       @endauth
-      <li class = "active"><a href="/entertainer">RETURN</a></li>
-  </ul>
-  </div>
+		</div>
+	</div>
 </nav>

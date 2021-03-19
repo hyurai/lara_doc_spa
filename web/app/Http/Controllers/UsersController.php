@@ -10,6 +10,7 @@ class UsersController extends Controller
 {
     public function show($id){
         $user = User::findOrfail($id);
-        return view('Users.show',compact('user'));
-    }  
+        $favorites = $user->favorites; 
+        return view('Users.show',compact('user','favorites'));
+    }
 }

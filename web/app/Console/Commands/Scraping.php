@@ -39,7 +39,7 @@ class Scraping extends Command
      */
     public function handle()
     {
-        $goutte = GoutteFacade::request('GET', "https://talent-dictionary.com/広瀬すず");
+        $goutte = GoutteFacade::request('GET', "https://talent-dictionary.com/hoge");
         $goutte->filter('.article_header')->each(function ($ul) {
             $ul->filter('.header_top')->each(function ($li) {
                 $is = $li->filter('img')->attr('src');

@@ -17,16 +17,16 @@
             <input type="hidden" name = "id" value = "{{$favorite->id}}"> 
             <button type = "submit" class = "btn btn-warning center-block">ブックマーク解除</button>
           </form>
-        @elseif($favorite->user_id != Auth::id())
-          <form action="/entertainer/{{$entertainer->id}}/favorite" method = "POST">
-            @csrf
-            <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
-            <input type="hidden" name = "user_id" value = "{{Auth::id()}}">
-            <button type = "submit" class = "btn btn-default center-block">お気に入り</button>
-          </form>
+        @else
         @endif
       @endforeach
     @endif
+    <form action="/entertainer/{{$entertainer->id}}/favorite" method = "POST">
+      @csrf
+      <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
+      <input type="hidden" name = "user_id" value = "{{Auth::id()}}">
+      <button type = "submit" class = "btn btn-warning center-block">お気に入り</button>
+    </form>
   </div>
 </div>
 <div class = "col-xs-6">
@@ -47,8 +47,11 @@
           <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
           <input type="hidden" name = "user_id" value = "{{Auth::id()}}">
           <textarea name="text"  cols="30" rows="10" class = "form-control" placeholder = "コメントをする"></textarea>
+          @error('text')
+            <p>コメントを入力してください</p>
+            <p>{{$message}}</p>
+          @enderror
           <button type="submit" class="m-100 btn btn-primary center-block">Commemt</button>
-
        </form>
   </div>
   @else
