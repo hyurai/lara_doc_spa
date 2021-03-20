@@ -52,24 +52,22 @@
   </div>
   <div class = "favorite">
     @if(Auth::check())
-      @foreach($favorites as $favorite)
-        @if($favorite->user_id == Auth::id())
-          <form action="/entertainer/{{$entertainer->id}}/favorite/{{$favorite->id}}" method = "POST">
-            @csrf
-            @method('DELETE')
-            <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
-            <input type="hidden" name = "id" value = "{{$favorite->id}}"> 
-            <button type = "submit" class = "btn btn-warning center-block">ブックマーク解除</button>
-          </form>
-        @else
-          <form action="/entertainer/{{$entertainer->id}}/favorite" method = "POST">
-            @csrf
-            <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
-            <input type="hidden" name = "user_id" value = "{{Auth::id()}}">
-            <button type = "submit" class = "btn btn-default center-block">お気に入り</button>
-          </form>
-        @endif
-      @endforeach
+      @forelse($favorites as $favorite)
+        <form action="/entertainer/{{$entertainer->id}}/favorite/{{$favorite->id}}" method = "POST">
+          @csrf
+          @method('DELETE')
+          <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
+          <input type="hidden" name = "id" value = "{{$favorite->id}}"> 
+          <button type = "submit" class = "btn btn-warning center-block">ブックマーク解除</button>
+        </form>
+      @empty
+        <form action="/entertainer/{{$entertainer->id}}/favorite" method = "POST">
+          @csrf
+          <input type="hidden" name = "entertainer_id" value = "{{$entertainer->id}}">
+          <input type="hidden" name = "user_id" value = "{{Auth::id()}}">
+          <button type = "submit" class = "btn btn-default center-block">お気に入り</button>
+        </form>
+      @endforelse
     @endif
   </div>
 </div>

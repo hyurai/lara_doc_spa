@@ -10,9 +10,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Weidner\Goutte\GoutteFacade as GoutteFacade;
 use Validator;
-
-
-
 class EntertainersController extends Controller
 
 {
@@ -25,12 +22,9 @@ class EntertainersController extends Controller
     }
     public function store(Request $request,Entertainer $entertainer){
         $URL = "https://talent-dictionary.com/{$request->name}";
-        try{
-            $goutte = GoutteFacade::request('GET', $URL);
-        }catch(Exception $e){
-            return back();
-        }
+        $goutte = GoutteFacade::request('GET', $URL);
         $goutte->filter('.article_header')->each(function ($ul) {
+
             $ul->filter('.header_top')->each(function ($li) {
                 
                 $name = $li->filter('h1')->text();
@@ -47,15 +41,18 @@ class EntertainersController extends Controller
                 }
             });
         });
-        $entertainer = Entertainer::where('name',$request->name)->firstOrFail();;
-        return redirect('/entertainer');
+        $entertainer = Entertainer::where('name',$request->name)->firstOrFail();
+        if ($entertainer->active_flag == 'N') { // 無効な商品なら、
+            return redirect('home'); // ホームページにリダイレクト
+        }
+
+        return view('entertainers.store',compact('entertainer'));
     }
     public function show($id){
         $entertainer = Entertainer::findOrfail($id);
         $comments = $entertainer->comments;
         $favorites = $entertainer->favorites;
 
-
-        return view('Entertainers.show',compact('entertainer','comments','favorites',));
+        return view('Entertainers.show',compact('entertainer','comments','favorites'));
     }
 }

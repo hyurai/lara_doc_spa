@@ -39,18 +39,24 @@ class Scraping extends Command
      */
     public function handle()
     {
-        $goutte = GoutteFacade::request('GET', "https://talent-dictionary.com/hoge");
+        $URL = "https://talent-dictionary.com/hoge";
+        $goutte = GoutteFacade::request('GET', $URL);
         $goutte->filter('.article_header')->each(function ($ul) {
+
             $ul->filter('.header_top')->each(function ($li) {
-                $is = $li->filter('img')->attr('src');
-                echo $is;
-                $age = $li->filter('.age')->text();
-                $a = rtrim($age,'歳');
-                echo $a;
-                echo "-----------------------";
-                $n = $li->filter('h1')->text();
-                echo $n;
-                echo "-----------------------";
+                
+                $name = $li->filter('h1')->text();
+                $entertainer = Entertainer::firstOrNew(['name' => $name]);
+               
+                if($entertainer->wasResentlyCreated){
+                    $entertainer->name = $name;
+                    $image_url = $li->filter('img')->attr('src');
+                    $entertainer->image_url = $image_url;
+                    $classage = $li->filter('.age')->text();
+                    $age = rtrim($classage,'歳');
+                    $entertainer->age = $age;
+                    $entertainer->save();
+                }
             });
         });
     }

@@ -34,6 +34,7 @@ Route::resource('/entertainer.favorite','App\Http\Controllers\FavoritesControlle
 Route::get('/home',function (){
     return view('home');
 });
-Route::fallback(function () {
-     redirect('/');
+Route::fallback(function ($route) {
+    // ここで何らかの処理をする
+    throw new NotFoundHttpException($route . ' not found');
 });
