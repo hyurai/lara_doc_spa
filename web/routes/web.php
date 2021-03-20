@@ -31,6 +31,9 @@ Route::resource('/entertainer','App\Http\Controllers\EntertainersController',['o
 Route::resource('/entertainer.comment','App\Http\Controllers\CommentsController',['only'=>['store']]);
 Route::resource('/user','App\Http\Controllers\UsersController',['only' => ['show']]);
 Route::resource('/entertainer.favorite','App\Http\Controllers\FavoritesController',['only'=>['destroy','store']]);
-Route::get('/top',function (){
-    return view('top');
+Route::get('/home',function (){
+    return view('home');
+});
+Route::fallback(function () {
+     redirect('/');
 });

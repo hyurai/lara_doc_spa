@@ -20,39 +20,42 @@ class EntertainersController extends Controller
         $entertainers = Entertainer::all();
         return view('Entertainers.index',compact('entertainers'));
     }
+    public function create(Entertainer $entertainer){
+        return view('Entertainers.create',compact('entertainer'));
+    }
     public function store(Request $request,Entertainer $entertainer){
         $URL = "https://talent-dictionary.com/{$request->name}";
-        $goutte = GoutteFacade::request('GET', $URL);
+        try{
+            $goutte = GoutteFacade::request('GET', $URL);
+        }catch(Exception $e){
+            return back();
+        }
         $goutte->filter('.article_header')->each(function ($ul) {
             $ul->filter('.header_top')->each(function ($li) {
-
-                $entertainer = new Entertainer;
-                $image_url = $li->filter('img')->attr('src');
-                $entertainer->image_url = $image_url;
-                $classage = $li->filter('.age')->text();
-                $age = rtrim($classage,'歳');
-                $entertainer->age = $age;
+                
                 $name = $li->filter('h1')->text();
-                $entertainer->name = $name;
-                $entertainer->save();
+                $entertainer = Entertainer::firstOrNew(['name' => $name]);
+               
+                if($entertainer->wasResentlyCreated){
+                    $entertainer->name = $name;
+                    $image_url = $li->filter('img')->attr('src');
+                    $entertainer->image_url = $image_url;
+                    $classage = $li->filter('.age')->text();
+                    $age = rtrim($classage,'歳');
+                    $entertainer->age = $age;
+                    $entertainer->save();
+                }
             });
         });
         $entertainer = Entertainer::where('name',$request->name)->firstOrFail();;
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
-        ]);
-        if($validator->fails()){
-            return back()
-            ->withErrors('$validator')
-            ->withInput();
-        }
-        return redirect('/entertainer')->withInput($entertainer);
+        return redirect('/entertainer');
     }
     public function show($id){
         $entertainer = Entertainer::findOrfail($id);
         $comments = $entertainer->comments;
         $favorites = $entertainer->favorites;
 
-        return view('Entertainers.show',compact('entertainer','comments','favorites'));
+
+        return view('Entertainers.show',compact('entertainer','comments','favorites',));
     }
 }

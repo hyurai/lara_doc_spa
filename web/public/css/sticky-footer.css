@@ -6,3 +6,23 @@
 .footer1{
     height: 50px;
 }
+.comments{
+    height:400px;
+    overflow: scroll;
+}
+.footer_show{
+    bottom: 0;
+    width: 100%;
+}
+.entertainer_infomations{
+    width: 200px;
+}
+.text-name{
+    font-size:15px;
+}
+.text-age{
+    font-size:15px;
+}
+.top-page{
+    height:100%;
+}

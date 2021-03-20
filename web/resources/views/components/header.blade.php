@@ -8,11 +8,12 @@
 				<span class="icon-bar"></span>
 			</button>
 		</div>
-		
 		<div class="collapse navbar-collapse" id="navbarEexample">
       @Auth
         <ul class="nav navbar-nav">
-          <li class=""><a href="/user/Auth::id()"> MYPAGE</a></li>
+          <li class = ""><a href="/home">Comuniect</a></li>
+          <li class=""><a href="/user/{{Auth::id()}}"> MYPAGE</a></li>
+          <li class = ""><a href="/entertainer">RETURN</a></li>
         </ul>
         <form action = "/entertainer"class="navbar-form navbar-right" role="search" method = "POST">
           @csrf
@@ -27,8 +28,10 @@
         </form>
       @else
         <ul class="nav navbar-nav">
+          <li class = ""><a href="/home"> Comuniect</a></li>
           <li class=""><a href="/login">ROGIN</a></li>
           <li class=""><a href="/register">REGISTER</a></li>
+          <li class =""><a href="/entertainer">RETURN</a></li>
         </ul>
       @endauth
 		</div>
