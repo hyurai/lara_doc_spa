@@ -7,9 +7,7 @@ use App\Models\Entertainer;
 use App\Models\Comment;
 use App\Models\Favorite;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Auth;
 use Weidner\Goutte\GoutteFacade as GoutteFacade;
-use Validator;
 class EntertainersController extends Controller
 
 {
@@ -42,10 +40,6 @@ class EntertainersController extends Controller
             });
         });
         $entertainer = Entertainer::where('name',$request->name)->firstOrFail();
-        if ($entertainer->active_flag == 'N') { // 無効な商品なら、
-            return redirect('home'); // ホームページにリダイレクト
-        }
-
         return view('entertainers.store',compact('entertainer'));
     }
     public function show($id){

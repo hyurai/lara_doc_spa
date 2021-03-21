@@ -13,6 +13,6 @@ class UsersController extends Controller
         $favorites = $user->favorites;
         $entertainers = $user->entertainers;
 
-        return view('Users.show',compact('user','favorites'));
+        return view('Users.show',compact('user','favorites','entertainers'));
     }
 }

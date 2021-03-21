@@ -65,6 +65,6 @@ class User extends Authenticatable
         return $this->hasmany('App\Models\Favorite');
     }
     public function entertainers(){
-        return $this->hasManyThrough('App\Models\Entertainer','App\Models\Favorite','user_id','favorite_id',null,'entertainer_id');
+        return $this->hasManyThrough('App\Models\Entertainer','App\Models\Favorite','user_id','id',null,'entertainer_id');
     }
 }
