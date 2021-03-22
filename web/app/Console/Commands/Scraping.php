@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Entertainer;
 use Illuminate\Console\Command;
 use Weidner\Goutte\GoutteFacade as GoutteFacade;
+use Validator;
 
 
 class Scraping extends Command
@@ -39,25 +41,26 @@ class Scraping extends Command
      */
     public function handle()
     {
-        $URL = "https://talent-dictionary.com/hoge";
-        $goutte = GoutteFacade::request('GET', $URL);
-        $goutte->filter('.article_header')->each(function ($ul) {
+       
 
-            $ul->filter('.header_top')->each(function ($li) {
-                
-                $name = $li->filter('h1')->text();
-                $entertainer = Entertainer::firstOrNew(['name' => $name]);
-               
-                if($entertainer->wasResentlyCreated){
-                    $entertainer->name = $name;
-                    $image_url = $li->filter('img')->attr('src');
-                    $entertainer->image_url = $image_url;
-                    $classage = $li->filter('.age')->text();
-                    $age = rtrim($classage,'歳');
-                    $entertainer->age = $age;
-                    $entertainer->save();
-                }
-            });
-        });
+        $URL = 'https://talent-dictionary.com/新田真剣佑';
+        $goutte = GoutteFacade::request('GET', $URL);
+    
+        $a = $goutte->filter('.container');
+        
+        $b = $a->filter('.main');
+        $c = $b->filter('h1')->text();
+        dd($c);
+        if($c == "ページが見つかりませんでした"){
+            echo $c;
+        }else{
+            
+            $d = $b->filter('img')->attr('src');
+            $classage = $b->filter('.age')->text();
+            $e = rtrim($classage,'歳');
+            echo $c;
+            echo $d;
+            echo $e;
+        }            
     }
 }

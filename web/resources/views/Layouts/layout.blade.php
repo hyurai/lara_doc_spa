@@ -7,4 +7,4 @@
 @endcomponent
 @yield('Entertainer')
 @component('components.footer')
-@endcomponent;
+@endcomponent

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Entertainer extends Model
 {
     use HasFactory;
+    protected $fillable = ['name'];
     public function comments()
     {
         return $this->hasmany('App\Models\Comment');

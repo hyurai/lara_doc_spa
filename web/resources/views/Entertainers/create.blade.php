@@ -7,5 +7,9 @@
     <input type="text" name = "name">
     <button type = "submit" class = "btn btn-primary">SEND</button>
   </form>
+  @error('name')
+    <p>ERROR</p>
+    <p>{{$message}}</p>
+  @enderror
 </div>
 @endsection

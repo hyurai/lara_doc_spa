@@ -8,39 +8,56 @@ use App\Models\Comment;
 use App\Models\Favorite;
 use Illuminate\Database\Eloquent\Builder;
 use Weidner\Goutte\GoutteFacade as GoutteFacade;
+use Illuminate\Support\Collection;
+use Validator;
 class EntertainersController extends Controller
 
 {
     public function index(){
+
         $entertainers = Entertainer::all();
         return view('Entertainers.index',compact('entertainers'));
     }
-    public function create(Entertainer $entertainer){
+    public function create(Request $request,Entertainer $entertainer){
         return view('Entertainers.create',compact('entertainer'));
     }
-    public function store(Request $request,Entertainer $entertainer){
+    public function store(Request $request){
         $URL = "https://talent-dictionary.com/{$request->name}";
         $goutte = GoutteFacade::request('GET', $URL);
-        $goutte->filter('.article_header')->each(function ($ul) {
+        $a = $goutte->filter('.container');
+        $b = $a->filter('.main');
+        $name['name'] = $b->filter('h1')->text();
 
-            $ul->filter('.header_top')->each(function ($li) {
-                
-                $name = $li->filter('h1')->text();
-                $entertainer = Entertainer::firstOrNew(['name' => $name]);
-               
-                if($entertainer->wasResentlyCreated){
-                    $entertainer->name = $name;
-                    $image_url = $li->filter('img')->attr('src');
-                    $entertainer->image_url = $image_url;
-                    $classage = $li->filter('.age')->text();
-                    $age = rtrim($classage,'歳');
-                    $entertainer->age = $age;
-                    $entertainer->save();
-                }
-            });
-        });
-        $entertainer = Entertainer::where('name',$request->name)->firstOrFail();
-        return view('entertainers.store',compact('entertainer'));
+        $error['error'] = "ページが見つかりませんでした";
+    
+        $validator = Validator::make($name,[
+            
+            'name' => 'different:error'
+          ]);
+        if($validator->fails()){
+            return back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        if($name['name'] == "ページが見つかりませんでした"){
+            $entertainer = new Entertainer;
+
+        }else{
+            $entertainers = Entertainer::firstOrNew(['name' => $name['name']]);
+            if($entertainers->wasResentlyCreated == false){
+                $image_url = $b->filter('img')->attr('src');
+                $classage = $b->filter('.age')->text();
+                $age = rtrim($classage,'歳');
+                $entertainers->name = $name['name'];
+                $entertainers->image_url = $image_url;
+                $entertainers->age = $age;
+                $entertainers->save();
+                $entertainer = Entertainer::where('name',$request->name)->firstOrFail();
+            }
+            $entertainer = Entertainer::where('name',$request->name)->firstOrFail();
+        }
+        return view('Entertainers.store',compact('entertainer'));
     }
     public function show($id){
         $entertainer = Entertainer::findOrfail($id);
