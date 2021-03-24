@@ -64,13 +64,11 @@ $ ~do anything~
 その他その他その他その他
 
 ## 作者
-
-[@TanakanoAnchan](https://twitter.com/TanakanoAnchan)
-mail to: xxxx@mail.com
+user00@icloud.com
 
 ## ライセンス
 
-[MIT](http://TomoakiTANAKA.mit-license.org)</blockquote>
+[MIT]</blockquote>
 
 
 
