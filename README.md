@@ -38,7 +38,7 @@
 ## インストール
 
 ```
-$ git clone https://github.com/TomoakiTANAKA/awesome-tool
+$ git clone https://github.com//awesome-tool
 $ cd awesome-tool
 $ sh setup.sh
 $ ~do anything~
