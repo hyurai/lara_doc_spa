@@ -19,8 +19,8 @@
 - ③登録されていない画像がない芸能人を追加する時
 - ④登録されている画像がない芸能人を検索する時
 - ⑤存在しない名前で検索をした時
+- - ![take6](https://user-images.githubusercontent.com/72079540/112467634-a4933680-8daa-11eb-8340-0e1df4112456.gif)
 - ⑥空白で検索をかけた時
-- ![take6](https://user-images.githubusercontent.com/72079540/112467634-a4933680-8daa-11eb-8340-0e1df4112456.gif)
 -この処理のコードはcontrollerフォルダのEntertainerControllerのstoreに書かれております。
 もしお時間があれば、見てくれますと嬉しいです!
 
