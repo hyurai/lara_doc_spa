@@ -25,6 +25,7 @@
 - 
 - この処理のコードはcontrollerフォルダのEntertainerControllerのstoreに書かれております。
 もしお時間があれば、見てくれますと嬉しいです!
+https://github.com/hyurai/lara_doc_spa/blob/main/web/app/Http/Controllers/EntertainersController.php
 
 ***デモ***
 
