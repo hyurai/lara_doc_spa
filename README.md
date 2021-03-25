@@ -15,6 +15,7 @@
 - ①登録されていない画像がある芸能人を追加する時
 - ![take1 (1)](https://user-images.githubusercontent.com/72079540/112466462-444fc500-8da9-11eb-80f7-a9922e02e407.gif)
 - ②登録されている画像がある芸能人を検索する時
+- ![take22](https://user-images.githubusercontent.com/72079540/112468842-1cae2c00-8dac-11eb-864f-3f92952f7c28.gif)
 - ③登録されていない画像がない芸能人を追加する時
 - ④登録されている画像がない芸能人を検索する時
 - ⑤存在しない名前で検索をした時
