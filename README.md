@@ -22,8 +22,8 @@
 - ![dddd](https://user-images.githubusercontent.com/72079540/112478798-b7f8ce80-8db7-11eb-8881-fe488b9d2812.gif)
 - ⑤存在しない名前で検索をした時
 - ![eeee](https://user-images.githubusercontent.com/72079540/112479130-132ac100-8db8-11eb-982b-56538701a33e.gif)
-- ⑥空白で検索をかけた時
--この処理のコードはcontrollerフォルダのEntertainerControllerのstoreに書かれております。
+- 
+- この処理のコードはcontrollerフォルダのEntertainerControllerのstoreに書かれております。
 もしお時間があれば、見てくれますと嬉しいです!
 
 ***デモ***
