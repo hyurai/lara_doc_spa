@@ -1,0 +1,14 @@
+.chat-talk.mytalk .talk-icon {
+    float: right;
+  }
+  .chat-talk.mytalk .talk-content {
+    margin: 0 70px 0 auto;
+    color: #000;
+    background: #78FF6C;
+  }
+  .chat-talk.mytalk .talk-content:before {
+    right: -20px;
+    left: auto;
+    border-color: transparent;
+    border-left-color: #78FF6C;
+  }

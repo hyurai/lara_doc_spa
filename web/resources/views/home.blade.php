@@ -2,6 +2,7 @@
   <title>Comuniect</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link href="/css/sticky-footer.css" rel="stylesheet" media="screen">
+  <link href="/css/line.css" rel = "stylesheet" media = "screen">    
 </head>
 <div class = "w-100 top-page" style = "background-color:#3e3e3e;">
   <nav class="navbar" style = "color:#3e3e3e;">
@@ -28,4 +29,7 @@
     <h2 style = "color:white;">好きな芸能人について話し合うSNS</h2>
     <a href="/entertainer">始める</a>
   </div>
+  <p class = "mytalk">可愛い</p>
+  <p class = "mytalk">かっこいい</p>
+  <p class = "mytalk">惚れる</p>
 </div>
